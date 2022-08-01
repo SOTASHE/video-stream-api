@@ -1,0 +1,67 @@
+service: HooliganAssessment
+
+custom:
+  settings:
+    USER_STREAMS_TABLE: userStreams
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    migration:
+      dir: offline/migrations
+
+    serverless-offline:
+       noPrependStageInUrl: true
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  environment: { USER_STREAMS_TABLE: userStreams }
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:Scan
+        - dynamodb:DeleteItem
+      Resource:
+        - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.settings.USER_STREAMS_TABLE}"
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+functions:
+  
+  logStream:
+    handler: newStreamLog.logStream
+    events:
+      - http:
+          path: /stream
+          method: post
+  removeStream:
+    handler: removeStreamLog.removeStream
+    events:
+      - http:
+          path: /stream
+          method: delete
+
+resources:
+  Resources:
+    UserStreamsTable:
+      Type: AWS::DynamoDB::Table
+      
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: "streamId"
+            AttributeType: "S"
+        KeySchema:
+          - AttributeName: "streamId"
+            KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.settings.USER_STREAMS_TABLE}
