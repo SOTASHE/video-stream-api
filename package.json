@@ -10,6 +10,8 @@
     "aws-cli": "^0.0.2",
     "aws-sdk": "^2.1185.0",
     "axios": "^0.27.2",
+    "docker": "^1.0.0",
+    "docker-compose": "^0.23.17",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "lambda-local": "^2.0.2",
