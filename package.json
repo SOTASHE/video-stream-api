@@ -20,7 +20,12 @@
   "description": "Node.js that exposes an API which can be consumed from any client. This service must check how many video streams a given user is watching and prevent a user from watching more than 3 video streams concurrently.",
   "main": "logStream.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:v": "npm test -- --verbose",
+    "deploy": "serverless deploy",
+    "start": "serverless offline start --noPrependStageInUrl",
+    "package": "serverless package"
   },
   "repository": {
     "type": "git",

@@ -1,8 +1,6 @@
 service: HooliganAssessment
 
 custom:
-#  serverless-offline:
-#   noPrependStageInUrl: true
   settings:
     USER_STREAMS_TABLE: userStreams
   dynamodb:
@@ -21,6 +19,9 @@ custom:
 
     serverless-offline:
        noPrependStageInUrl: true
+   
+  serverless-offline:
+  host: 0.0.0.0 # for docker container hosting
 
 provider:
   name: aws

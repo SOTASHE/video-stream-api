@@ -1,0 +1,32 @@
+version: '3'
+
+# builds the api container and sets up the localstack container to run
+
+services:
+  api:
+    build: .
+    image: stream/stream_api
+    depends_on:
+      - localstack
+    ports:
+      - '3000:3000'
+    container_name: stream_api
+
+    # these are the environment variables that are used in the api
+    environment:
+      AWS_ENDPOINT: http://dynamodb_localstack:8000
+      AWS_REGION: 'us-east-1'
+      AWS_ACCESS_KEY_ID: 'access_key'
+      AWS_SECRET_ACCESS_KEY: 'secret_key'
+
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - '8000:8000' # using port 8000 to be consistent with dynamodb local jar
+      - '4566:4566' # new dynamodb port
+      - '8080:8080' # the localstack admin portal
+  
+    container_name: localstack
+    environment:
+      SERVICES: dynamodb:8000 # this is the services that are started on localstack (dynamodb and s3) and not the ones that are started on the api
+      DATA_DIR:  '/tmp/localstack/data' # this is the directory that is used to store the data that is used by the localstack services (dynamodb and s3)
