@@ -11,15 +11,39 @@ require("dotenv").config(); // load our .env file
 
 const { v4: uuidv4 } = require("uuid");
 
-AWS.config.update({
-  // update our config with our access keys
-  region: process.env.AWS_DEFAULT_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
+// AWS.config.update({
+//   // update our config with our access keys
+//   region: process.env.AWS_DEFAULT_REGION,
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+// });
 
-// create a new dynamoDB client
-const dynamodb = new AWS.DynamoDB();
+// // create a new dynamoDB client
+// const dynamodb = new AWS.DynamoDB();
+
+// AWS.config.update({
+//   // update our config with our access keys
+//   region: process.env.AWS_DEFAULT_REGION,
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+// });
+let options = {};
+
+if (process.env.IS_OFFLINE) {
+  options = {
+    region: "localhost",
+    endpoint: "http://localhost:8000",
+  };
+}
+else {
+  options = {
+    region: process.env.AWS_DEFAULT_REGION,
+    ccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  };
+}
+
+const dynamodb = new AWS.DynamoDB(options);
 const TABLE_NAME = "userStreams"; // name of our table
 
 

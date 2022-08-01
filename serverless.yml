@@ -7,9 +7,13 @@ custom:
     stages:
       - dev
     start:
+      docker: true
       port: 8000
       inMemory: true
       migrate: true
+      migrateStage: dev
+      migrateTable: userStreams
+      convertEmptyValues: true
     migration:
       dir: offline/migrations
 

@@ -1,19 +1,24 @@
 {
   "devDependencies": {
+    "@shelf/jest-dynamodb": "^1.7.0",
+    "jest": "^26.2.2",
+    "serverless": "^3.21.0",
     "serverless-dynamodb-local": "^0.2.40",
     "serverless-offline": "^9.1.1"
   },
   "dependencies": {
+    "aws-cli": "^0.0.2",
     "aws-sdk": "^2.1185.0",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "lambda-local": "^2.0.2",
     "uuid": "^8.3.2"
   },
   "name": "video-stream-api",
   "version": "1.0.0",
   "description": "Node.js that exposes an API which can be consumed from any client. This service must check how many video streams a given user is watching and prevent a user from watching more than 3 video streams concurrently.",
-  "main": "index.js",
+  "main": "logStream.js",
   "scripts": {
     "test": "jest"
   },
