@@ -9,7 +9,7 @@ solution */
 xdescribe("API endpoint testing", () => {
   it("returns a 201 for a stream log being created", async () => {
     const response = await axios.post(
-      "https://vra4plkr9e.execute-api.eu-west-2.amazonaws.com/dev/stream",
+      "https://zad7tk21j2.execute-api.us-east-1.amazonaws.com/dev/stream",
       {
         userId: "1",
       }
