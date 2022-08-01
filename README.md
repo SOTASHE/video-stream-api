@@ -20,7 +20,7 @@ After completing the challenge I reviewed my solution and found that the problem
 - install the dependencies `npm install`.
 - initialize the offline server `npm start .` (if you wish to test locally).
 - utilise Postman or a similar service to send requests to the API.
-- Docker run 'docker-compose up -d'   
+- Docker run `docker-compose up -d` 
 
 ### Valid requests
 
