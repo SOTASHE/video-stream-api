@@ -18,8 +18,8 @@ custom:
       dir: offline/migrations
 
     serverless-offline:
-       noPrependStageInUrl: true
-   
+      noPrependStageInUrl: true
+
   serverless-offline:
   host: 0.0.0.0 # for docker container hosting
 
@@ -42,7 +42,6 @@ plugins:
   - serverless-dynamodb-local
 
 functions:
-  
   logStream:
     handler: newStreamLog.logStream
     events:
@@ -60,7 +59,7 @@ resources:
   Resources:
     UserStreamsTable:
       Type: AWS::DynamoDB::Table
-      
+
       Properties:
         AttributeDefinitions:
           - AttributeName: "streamId"

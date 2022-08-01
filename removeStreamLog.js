@@ -1,6 +1,4 @@
 
-
-
 "use strict";
 
 // working with our dynamoDB table from aws
@@ -45,11 +43,6 @@ else {
 
 const dynamodb = new AWS.DynamoDB(options);
 const TABLE_NAME = "userStreams"; // name of our table
-
-
-
-
-
 const response = (statusCode, message) => {
   return {
     statusCode: statusCode,
@@ -60,11 +53,8 @@ const response = (statusCode, message) => {
   };
 };
 
-module.exports.removeStream = (event, context, callback) => {
-   callback(null, response(200, "success"));
+const removeStream = (event, context, callback) => {
   const requestBody = JSON.parse(event.body);
-
-  console.log(JSON.stringify(requestBody, null, 2));
 
   const params = {
     TableName: TABLE_NAME,
@@ -80,17 +70,20 @@ module.exports.removeStream = (event, context, callback) => {
     },
   };
 
-  return dynamodb
+  return dynamod
     .delete(params)
     .promise()
     .then(() => {
       callback(null, response(204));
-
-      return;
-
-
     })
     .catch((error) => {
       callback(null, response(404, { error: error.message }));
     });
+};
+
+
+module.exports = {
+  removeStream,
+
+  dynamodb,
 };
